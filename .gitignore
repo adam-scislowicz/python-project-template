@@ -4,6 +4,7 @@
 rust_proj
 /src/rust/target
 /src/rust/Cargo.lock
+/build
 __pycache__
 .benchmarks
 *.egg-info

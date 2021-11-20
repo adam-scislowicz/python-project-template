@@ -1,0 +1,79 @@
+{% set version = "0.0.1" %}
+{% set win_vstr = version.replace('.', '_') %}
+{% set win_vstr_mm = "_".join(version.split(".")[:2]) %}
+{% set win_astr = "x32" if win32 else "x64" %}
+{% set filename = "proj_template_%s.tar.bz2" % win_vstr %}
+
+package:
+  # Short name to avoid filename length issues on Windows.
+  name: projtemplate
+  version: {{ version }}
+
+source:
+  path: .
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - python
+    - pybind11
+    - cmake
+    - ninja
+    - pkg-config
+    - setuptools-rust
+
+outputs:
+  - name: libprojcxx
+    build:
+      activate_in_script: True
+    script: mamba/install-libprojcxx.sh   # [unix]
+    requirements:
+      build:
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+        - cmake
+        - ninja
+        - pybind11
+        - python
+
+  - name: pyproj
+    script: mamba/install-pyproj.sh   # [unix]
+    build:
+      activate_in_script: True
+    requirements:
+      build:
+        - {{ compiler('c') }}
+        - {{ compiler('cxx') }}
+      host:
+        - pybind11
+        - cmake
+        - ninja
+        - pkg-config
+        - setuptools-rust
+        - python
+      run:
+        - python
+    test:
+      source_files: src/python/*
+      requires:
+        - pytest
+        - flake8
+      commands:
+        - flake8 src/python
+        - pushd src/python/project/tests
+        -   pytest -sv
+        - popd
+
+about:
+  home: https://extropic.net/
+  license: confidential
+  license_file: LICENSE.txt
+  summary: Template python project with c++ and rust bindings.
+
+extra:
+  recipe-maintainers:
+    - ascislowicz

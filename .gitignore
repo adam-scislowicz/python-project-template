@@ -1,0 +1,11 @@
+/.devcontainer
+/dist
+/project
+rust_proj
+/src/rust/target
+/src/rust/Cargo.lock
+__pycache__
+.benchmarks
+*.egg-info
+*.so
+.pytest_cache

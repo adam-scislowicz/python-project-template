@@ -1,0 +1,15 @@
+include pyproject.toml
+include *.md
+include LICENSE.txt
+
+include setup.py
+include CMakeLists.txt
+include Dockerfile
+include tox.ini
+
+recursive-include src/rust *
+recursive-include src/cxx *
+recursive-include src/python *
+
+exclude src/rust/Cargo.lock
+recursive-exclude src/rust/target *

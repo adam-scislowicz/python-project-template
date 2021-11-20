@@ -1,0 +1,3 @@
+export CMAKE_PREFIX_PATH=${CONDA_BUILD_SYSROOT}/usr
+export CMAKE_INSTALL_PREFIX=${CONDA_BUILD_SYSROOT}/usr
+pip install . -vvv

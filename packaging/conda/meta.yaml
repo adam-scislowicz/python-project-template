@@ -10,7 +10,7 @@ package:
   version: {{ version }}
 
 source:
-  path: .
+  path: ../../
 
 build:
   number: 0
@@ -30,7 +30,7 @@ outputs:
   - name: libprojcxx
     build:
       activate_in_script: True
-    script: mamba/install-libprojcxx.sh   # [unix]
+    script: install-libprojcxx.sh   # [unix]
     requirements:
       build:
         - {{ compiler('c') }}
@@ -41,7 +41,7 @@ outputs:
         - python
 
   - name: pyproj
-    script: mamba/install-pyproj.sh   # [unix]
+    script: install-pyproj.sh   # [unix]
     build:
       activate_in_script: True
     requirements:
@@ -70,7 +70,7 @@ outputs:
 
 about:
   home: https://extropic.net/
-  license: confidential
+  license: Propriatary
   license_file: LICENSE.txt
   summary: Template python project with c++ and rust bindings.
 

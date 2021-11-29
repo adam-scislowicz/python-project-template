@@ -5,8 +5,9 @@ rust_proj
 /src/rust/target
 /src/rust/Cargo.lock
 /build
-/cmake-build-debug
+/cmake-build*
 /.idea
+/.tox
 __pycache__
 .benchmarks
 *.egg-info

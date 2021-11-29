@@ -25,12 +25,13 @@ RUN yes '' | apt-add-repository -y 'deb https://apt.kitware.com/ubuntu/ bionic m
 RUN yes '' | add-apt-repository -y ppa:ubuntu-toolchain-r/test
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
-    gcc-11 g++-11 cmake
+    clang-format cmake gcc-11 g++-11
 
 RUN update-alternatives --remove-all cpp
 RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 110 --slave /usr/bin/g++ g++ /usr/bin/g++-11 --slave /usr/bin/gcov gcov /usr/bin/gcov-11 --slave /usr/bin/gcc-ar gcc-ar /usr/bin/gcc-ar-11 --slave /usr/bin/gcc-ranlib gcc-ranlib /usr/bin/gcc-ranlib-11  --slave /usr/bin/cpp cpp /usr/bin/cpp-11
 
 RUN /databricks/python3/bin/pip3 install \
+    black \
     check-manifest \
     flake8 \
     pybind11 \

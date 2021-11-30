@@ -4,7 +4,7 @@ import sys
 import subprocess
 
 import pathlib
-from setuptools import Extension, setup, find_packages
+from setuptools import Extension
 from setuptools.command.build_ext import build_ext
 from setuptools_rust import Binding, RustExtension
 
@@ -12,11 +12,20 @@ __version__ = "0.0.1"
 
 __here__ = pathlib.Path(__file__).parent.resolve()
 
+# Convert distutils Windows platform specifiers to CMake -A arguments
+PLAT_TO_CMAKE = {
+    "win32": "Win32",
+    "win-amd64": "x64",
+    "win-arm32": "ARM",
+    "win-arm64": "ARM64",
+}
+
 
 class CMakeExtension(Extension):
     def __init__(self, name, sourcedir=""):
         Extension.__init__(self, name, sources=[])
         self.sourcedir = os.path.abspath(sourcedir)
+
 
 class CMakeBuild(build_ext):
     def build_extension(self, ext):
@@ -45,7 +54,7 @@ class CMakeBuild(build_ext):
             "-DVERSION={}".format(__version__),
             "-DCMAKE_BUILD_TYPE={}".format(cfg),  # not used on MSVC, but no harm
         ]
-        build_args = ['-v']
+        build_args = ["-v"]
 
         if self.compiler.compiler_type != "msvc":
             # Using Ninja-build since it a) is available as a wheel and b)
@@ -72,9 +81,7 @@ class CMakeBuild(build_ext):
 
             # Multi-config generators have a different way to specify configs
             if not single_config:
-                cmake_args += [
-                    "-DCMAKE_LIBRARY_OUTPUT_DIRECTORY_{}={}".format(cfg.upper(), extdir)
-                ]
+                cmake_args += ["-DCMAKE_LIBRARY_OUTPUT_DIRECTORY_{}={}".format(cfg.upper(), extdir)]
                 build_args += ["--config", cfg]
 
         # Set CMAKE_BUILD_PARALLEL_LEVEL to control the parallel build level
@@ -89,14 +96,11 @@ class CMakeBuild(build_ext):
         if not os.path.exists(self.build_temp):
             os.makedirs(self.build_temp)
 
-        subprocess.check_call(
-            ["cmake", ext.sourcedir] + cmake_args, cwd=self.build_temp
-        )
-        subprocess.check_call(
-            ["cmake", "--build", "."] + build_args, cwd=self.build_temp
-        )
+        subprocess.check_call(["cmake", ext.sourcedir] + cmake_args, cwd=self.build_temp)
+        subprocess.check_call(["cmake", "--build", "."] + build_args, cwd=self.build_temp)
 
-long_description = (__here__ / 'README.md').read_text(encoding='utf-8')
+
+long_description = (__here__ / "README.md").read_text(encoding="utf-8")
 
 setuptools.setup(
     name="project",
@@ -104,23 +108,27 @@ setuptools.setup(
     author="Adam Scislowicz",
     author_email="adam.scislowicz@gmail.com",
     license="proprietary and confidential",
-    license_files = ('LICENSE.txt',),
+    license_files=("LICENSE.txt",),
     description="misc modules",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    package_dir={'': 'src/python'},
-    packages=setuptools.find_packages(where='src/python'),
+    package_dir={"": "src/python"},
+    packages=setuptools.find_packages(where="src/python"),
     classifiers=[
         "Programming Language :: Python :: 3",
         "Operating System :: OS Independent",
     ],
     ext_modules=[CMakeExtension(name="project.cxxmod")],
     cmdclass={"build_ext": CMakeBuild},
-    rust_extensions=[RustExtension("project.rust_proj.rustmoda", path="src/rust/Cargo.toml", binding=Binding.PyO3)],
-    python_requires='>=3.6, <4',
+    rust_extensions=[
+        RustExtension(
+            "project.rust_proj.rustmoda", path="src/rust/Cargo.toml", binding=Binding.PyO3
+        )
+    ],
+    python_requires=">=3.6, <4",
     extras_require={
-        'dev': ['check-manifest'],
-        'test': ['coverage'],
+        "dev": ["check-manifest"],
+        "test": ["coverage"],
     },
     zip_safe=False,
 )

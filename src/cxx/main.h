@@ -3,23 +3,21 @@
 
 #include <pybind11/pybind11.h>
 
-enum ExampleEnum {
-	kExampleEnumValOne,
-	kExampleEnumValTwo
-};
+enum ExampleEnum { kExampleEnumValOne, kExampleEnumValTwo };
 
 class ExampleClass {
 public:
-	ExampleClass();
-	ExampleClass(pybind11::object dict);
-	~ExampleClass();
+  ExampleClass();
+  ExampleClass(pybind11::object dict);
+  ~ExampleClass();
 
-	void OverloadedMethod();
-	void OverloadedMethod(int val_in);
+  void OverloadedMethod();
+  void OverloadedMethod(int val_in);
 
-	void Method();
+  void Method();
 
-	int val = 4;
+  int val = 4;
+
 private:
 };
 

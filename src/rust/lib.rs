@@ -10,5 +10,5 @@ fn testing() {
 fn rustmoda(_py: Python<'_>, m: &PyModule) -> PyResult<()> {
     m.add_wrapped(wrap_pyfunction!(testing))?;
 
-	Ok(())
+    Ok(())
 }

@@ -43,3 +43,5 @@ RUN /databricks/python3/bin/pip3 install \
 RUN wget -qO - https://sh.rustup.rs | sh -s -- --no-modify-path -y
 
 ENV PATH="/root/.cargo/bin:/databricks/python3/bin:${PATH}"
+
+RUN rustup component add rustfmt clippy

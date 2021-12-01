@@ -1,4 +1,4 @@
-.PHONY: beautify lint build-dev build
+.PHONY: beautify lint build-dev build clean
 
 beautify:
 	black .
@@ -10,7 +10,13 @@ beautify:
 lint:
 	flake8
 
-	# XXXADS TODO: clang-tidy
+	cppcheck --enable=warning,performance,portability,information,missingInclude \
+		-I/databricks/python3/lib/python3.8/site-packages/pybind11/include/ \
+		--suppress=preprocessorErrorDirective:/databricks/python3/lib/python3.8/site-packages/pybind11/include/pybind11/detail/common.h \
+		--std=c++20 \
+		-UVERSION_INFO \
+		--check-config \
+		./src/cxx
 
 	(cd ./src/rust && cargo clippy)
 
@@ -19,3 +25,6 @@ build-dev:
 
 build:
 	pip install . -vvv
+
+clean:
+	@rm -rf build* cmake-build*

@@ -36,9 +36,18 @@ RUN /databricks/python3/bin/pip3 install \
     flake8 \
     pybind11 \
     pytest \
+    pyyaml \
     setuptools \
     setuptools-rust \
     tox
+
+RUN wget https://github.com/danmar/cppcheck/archive/2.6.tar.gz
+RUN tar xvzf 2.6.tar.gz && \
+    mkdir cppcheck-2.6/build && \
+    cd cppcheck-2.6/build && \
+    cmake .. -GNinja && \
+    ninja && \
+    ninja install
 
 RUN wget -qO - https://sh.rustup.rs | sh -s -- --no-modify-path -y
 

@@ -4,7 +4,7 @@
 rust_proj
 /src/rust/target
 /src/rust/Cargo.lock
-/build
+/build*
 /cmake-build*
 /.idea
 /.tox

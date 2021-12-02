@@ -21,4 +21,4 @@ lint:
 	(cd ./src/rust && cargo clippy)
 
 clean:
-	@rm -rf build* cmake-build*
+	@rm -rf build* cmake-build* .tox src/rust/target src/python/project.egg-info

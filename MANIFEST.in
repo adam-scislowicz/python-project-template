@@ -3,9 +3,11 @@ include *.md
 include LICENSE.txt
 
 include setup.py
+include makefile
 include CMakeLists.txt
 include Dockerfile
 include tox.ini
+include .clang-format
 
 recursive-include packaging *
 recursive-include src/rust *

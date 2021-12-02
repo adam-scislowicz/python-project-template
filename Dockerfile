@@ -12,6 +12,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
     libspdlog-dev \
     ninja-build \
     packaging-dev \
+    python3.8-venv \
     software-properties-common \
     tmux
 

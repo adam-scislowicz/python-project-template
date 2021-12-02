@@ -153,6 +153,7 @@ setuptools.setup(
     version=__version__,
     author="Adam Scislowicz",
     author_email="adam.scislowicz@gmail.com",
+    url="https://github.com/adam-scislowicz/databricks-dev",
     license="proprietary and confidential",
     license_files=("LICENSE.txt",),
     description="misc modules",

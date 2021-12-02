@@ -4,6 +4,7 @@ import sys
 import subprocess
 
 import pathlib
+import distutils.cmd
 from setuptools import Extension
 from setuptools.command.build_ext import build_ext
 from setuptools_rust import Binding, RustExtension
@@ -19,6 +20,51 @@ PLAT_TO_CMAKE = {
     "win-arm32": "ARM",
     "win-arm64": "ARM64",
 }
+
+
+class CmdBeautify(distutils.cmd.Command):
+    """Standardize formatting of the source code."""
+
+    user_options = []
+
+    def initialize_options(self):
+        pass
+
+    def finalize_options(self):
+        pass
+
+    def run(self):
+        subprocess.check_call("make beautify".split())
+
+
+class CmdLint(distutils.cmd.Command):
+    """Static analysis of the source code."""
+
+    user_options = []
+
+    def initialize_options(self):
+        pass
+
+    def finalize_options(self):
+        pass
+
+    def run(self):
+        subprocess.check_call("make lint".split())
+
+
+class CmdClean(distutils.cmd.Command):
+    """Cleanup files produced by the build process."""
+
+    user_options = []
+
+    def initialize_options(self):
+        pass
+
+    def finalize_options(self):
+        pass
+
+    def run(self):
+        subprocess.check_call("make clean".split())
 
 
 class CMakeExtension(Extension):
@@ -119,7 +165,7 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     ext_modules=[CMakeExtension(name="project.cxxmod")],
-    cmdclass={"build_ext": CMakeBuild},
+    cmdclass={"build_ext": CMakeBuild, "beautify": CmdBeautify, "lint": CmdLint, "clean": CmdClean},
     rust_extensions=[
         RustExtension(
             "project.rust_proj.rustmoda", path="src/rust/Cargo.toml", binding=Binding.PyO3

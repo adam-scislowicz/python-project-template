@@ -1,4 +1,4 @@
-.PHONY: beautify lint build-dev build clean
+.PHONY: beautify lint clean
 
 beautify:
 	black .
@@ -19,12 +19,6 @@ lint:
 		./src/cxx
 
 	(cd ./src/rust && cargo clippy)
-
-build-dev:
-	pip install -e . -vvv
-
-build:
-	pip install . -vvv
 
 clean:
 	@rm -rf build* cmake-build*

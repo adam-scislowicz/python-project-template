@@ -1,24 +1,10 @@
-.PHONY: beautify lint clean
+.PHONY: docker-image docker-interactive clean
 
-beautify:
-	black .
+docker-image: Dockerfile
+	DOCKER_BUILDKIT=1 docker build . -f $< -t conda-forge-template:latest /bin/bash
 
-	@find ./src -regex '\(.*\.cpp\|.*\.h\)' -exec bash -c "echo clang-format -i {}... && clang-format -i {}" \;
-
-	(cd ./src/rust && cargo fmt)
-
-lint:
-	flake8
-
-	cppcheck --enable=warning,performance,portability,information,missingInclude \
-		-I/databricks/python3/lib/python3.8/site-packages/pybind11/include/ \
-		--suppress=preprocessorErrorDirective:/databricks/python3/lib/python3.8/site-packages/pybind11/include/pybind11/detail/common.h \
-		--std=c++20 \
-		-UVERSION_INFO \
-		--check-config \
-		./src/cxx
-
-	(cd ./src/rust && cargo clippy)
+docker-interactive:
+	docker run -v $(PWD):/home/ubuntu -it -w /home/ubuntu conda-forge-template:latest
 
 clean:
-	@rm -rf build* cmake-build* .tox src/rust/target src/python/project.egg-info
+	@rm -rf build* cmake-build* src/rust/target src/python/project.egg-info

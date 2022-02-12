@@ -35,12 +35,13 @@ RUN /databricks/python3/bin/pip3 install \
     black \
     check-manifest \
     flake8 \
+    nox \
+    pre-commit \
     pybind11 \
     pytest \
     pyyaml \
     setuptools \
-    setuptools-rust \
-    tox
+    setuptools-rust
 
 RUN wget https://github.com/danmar/cppcheck/archive/2.6.tar.gz
 RUN tar xvzf 2.6.tar.gz && \

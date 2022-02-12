@@ -25,3 +25,19 @@ Linting is accomplished using the following:
 Unit tests are accomplished using py.test.
 
 Benchmarks use pytest-benchmark.
+
+##  Basic Usage
+
+  * make docker-image
+  * make docker-interactive
+    * nox --sessions lint
+    * pip install -e .
+    * nox --sessions tests
+
+## TODO
+
+  1) cookiecutter-ify
+  2) replace the makefile with additional noxfile sessions
+  3) replace the pre-commit system commands using bash with ones using python
+  4) replace the two bash scripts in packaging/conda with python scripts for better platform portability
+

@@ -16,7 +16,7 @@ Code beautification is accomplished as follows:
   3) rust code is beautified using cargo fmt
 
 Linting is accomplished using the following:
-  1) package specification are validates using check-manifest
+  1) package specification are validated using check-manifest
   2) setup.py is validated using python check -m -s
   3) python code is validated using flake8
   4) c++ code is validated using cppcheck

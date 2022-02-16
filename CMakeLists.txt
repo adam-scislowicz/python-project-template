@@ -12,7 +12,7 @@ foreach (_variableName ${_variableNames})
     message(STATUS "${_variableName}=${${_variableName}}")
 endforeach()
 
-project(project LANGUAGES C CXX)
+project({{ cookiecutter.project_name }} LANGUAGES C CXX)
 set(CMAKE_C_STANDARD 17 CACHE STRING "C version selection")
 set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 20 CACHE STRING "C++ version selection")

@@ -34,6 +34,7 @@ RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 110 --slave /
 RUN /databricks/python3/bin/pip3 install \
     black \
     check-manifest \
+    cookiecutter \
     flake8 \
     nox \
     pre-commit \

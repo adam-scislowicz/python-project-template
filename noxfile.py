@@ -19,4 +19,4 @@ def tests(session: nox.Session) -> None:
     """
     session.install("-r", "requirements.test.txt")
     session.install("-e", ".")
-    session.run("py.test", "src/python/project/tests", *session.posargs)
+    session.run("py.test", "src/python/{{ cookiecutter.project_name }}/tests", *session.posargs)

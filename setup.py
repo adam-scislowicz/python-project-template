@@ -9,7 +9,7 @@ from setuptools import Extension
 from setuptools.command.build_ext import build_ext
 from setuptools_rust import Binding, RustExtension
 
-__version__ = "0.0.1"
+__version__ = {{ cookiecutter.version }}
 
 __here__ = pathlib.Path(__file__).parent.resolve()
 
@@ -20,36 +20,6 @@ PLAT_TO_CMAKE = {
     "win-arm32": "ARM",
     "win-arm64": "ARM64",
 }
-
-
-class CmdBeautify(distutils.cmd.Command):
-    """Standardize formatting of the source code."""
-
-    user_options = []
-
-    def initialize_options(self):
-        pass
-
-    def finalize_options(self):
-        pass
-
-    def run(self):
-        subprocess.check_call("make beautify".split())
-
-
-class CmdLint(distutils.cmd.Command):
-    """Static analysis of the source code."""
-
-    user_options = []
-
-    def initialize_options(self):
-        pass
-
-    def finalize_options(self):
-        pass
-
-    def run(self):
-        subprocess.check_call("make lint".split())
 
 
 class CmdClean(distutils.cmd.Command):
@@ -153,7 +123,7 @@ setuptools.setup(
     version=__version__,
     author="Adam Scislowicz",
     author_email="adam.scislowicz@gmail.com",
-    url="https://github.com/adam-scislowicz/databricks-dev",
+    url="https://github.com/ExtropicSystems/conda-forge-template.git",
     license="proprietary and confidential",
     license_files=("LICENSE.txt",),
     description="misc modules",
@@ -165,16 +135,16 @@ setuptools.setup(
         "Programming Language :: Python :: 3",
         "Operating System :: OS Independent",
     ],
-    ext_modules=[CMakeExtension(name="project.cxxmod")],
-    cmdclass={"build_ext": CMakeBuild, "beautify": CmdBeautify, "lint": CmdLint, "clean": CmdClean},
+    ext_modules=[CMakeExtension(name="{{ cookiecutter.project_name }}.cxxmod")],
+    cmdclass={"build_ext": CMakeBuild, "clean": CmdClean},
     rust_extensions=[
         RustExtension(
-            "project.rust_proj.rustmoda", path="src/rust/Cargo.toml", binding=Binding.PyO3
+            "{{ cookiecutter.project_name }}.rust_proj.rustmoda", path="src/rust/Cargo.toml", binding=Binding.PyO3
         )
     ],
     python_requires=">=3.6, <4",
     extras_require={
-        "dev": ["check-manifest"],
+        "dev": ["check-manifest", "setuptools_rust"],
         "test": ["coverage"],
     },
     zip_safe=False,

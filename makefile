@@ -7,4 +7,4 @@ docker-interactive:
 	docker run -v $(PWD):/home/ubuntu -it -w /home/ubuntu conda-forge-template:latest
 
 clean:
-	@rm -rf build* cmake-build* src/rust/target src/python/project.egg-info
+	@rm -rf build* cmake-build* src/rust/target src/python/{{ cookiecutter.project_name }}.egg-info

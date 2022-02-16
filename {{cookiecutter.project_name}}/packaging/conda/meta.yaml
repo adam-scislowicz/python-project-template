@@ -1,13 +1,7 @@
-{% set version = "0.0.1" %}
-{% set win_vstr = version.replace('.', '_') %}
-{% set win_vstr_mm = "_".join(version.split(".")[:2]) %}
-{% set win_astr = "x32" if win32 else "x64" %}
-{% set filename = "proj_template_%s.tar.bz2" % win_vstr %}
-
 package:
   # Short name to avoid filename length issues on Windows.
   name: projtemplate
-  version: {{ version }}
+  version: {{ cookiecutter.version }}
 
 source:
   path: ../../

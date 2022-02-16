@@ -24,7 +24,6 @@ Benchmarks use pytest-benchmark.
   * make docker-image
   * make docker-interactive
     * nox --sessions lint
-    * pip install -e .
     * nox --sessions tests
 
 ## TODO

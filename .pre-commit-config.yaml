@@ -13,10 +13,12 @@ repos:
   - id: end-of-file-fixer
   - id: mixed-line-ending
   - id: requirements-txt-fixer
+    files: requirements.*\.txt$
+    pass_filenames: true
   - id: trailing-whitespace
 
 - repo: https://github.com/ambv/black
-  rev: stable
+  rev: 22.1.0
   hooks:
     - id: black
       language_version: python3.8
@@ -46,6 +48,13 @@ repos:
   hooks:
   - id: check-manifest
     args: ['--ignore', 'noxfile.py,src/python/project/tests/**,*.so']
+
+- repo: local
+  hooks:
+  - id: pipcheck
+    name: pipcheck - validate requirements
+    language: system
+    entry: bash -c 'pip check'
 
 # XXXADS issue with setuptools-rust dependency. I think its a conflict with
 # how databricks tracks the python env combined with how nox builds its
@@ -77,4 +86,3 @@ repos:
     name: cargo clippy - rust linter
     language: system
     entry: bash -c 'cd src/rust && cargo clippy'
-

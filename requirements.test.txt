@@ -1,0 +1,6 @@
+check-manifest >= 0.42
+flake8
+pre-commit
+pytest
+pytest-benchmark
+setuptools-rust

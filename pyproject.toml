@@ -7,13 +7,3 @@ build-backend = "setuptools.build_meta"
 [tool.black]
 line-length=100
 include = '\.pyi?$'
-
-[project.optional-dependencies]
-test = [
-	"pre-commit",
-	"check-manifest >= 0.42",
-    "flake8",
-    "pytest",
-    "pytest-benchmark",
-    "setuptools-rust"
-]

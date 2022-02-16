@@ -6,8 +6,11 @@ include setup.py
 include makefile
 include CMakeLists.txt
 include Dockerfile
-include tox.ini
+include noxfile.py
 include .clang-format
+include .flake8
+include .pre-commit-config.yaml
+include requirements.test.txt
 
 recursive-include packaging *
 recursive-include src/rust *

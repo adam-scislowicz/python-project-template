@@ -1,7 +1,7 @@
 .PHONY: docker-image docker-interactive clean
 
 docker-image: Dockerfile
-	DOCKER_BUILDKIT=1 docker build . -f $< -t python-project-template:latest /bin/bash
+	DOCKER_BUILDKIT=1 docker build -f $< -t python-project-template:latest .
 
 docker-interactive:
 	docker run -v $(PWD):/home/ubuntu -it -w /home/ubuntu python-project-template:latest

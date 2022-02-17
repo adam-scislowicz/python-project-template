@@ -1,8 +1,8 @@
 [package]
 name = "rust_proj"
-version = {{ cookiecutter.version }}
+version = "{{ cookiecutter.version }}"
 authors = ["{{ cookiecutter.full_name }} <{{ cookiecutter.email }}>"]
-edition = {{ cookiecutter.year }}
+edition = "2021"
 
 [dependencies]
 pyo3 = { version = "0.14.5", features = ["extension-module"] }

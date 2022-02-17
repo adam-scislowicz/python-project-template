@@ -6,8 +6,6 @@ repos:
   - id: check-case-conflict
   - id: check-merge-conflict
   - id: check-symlinks
-# XXXADS check-yaml is disabled as it doesn't like the meta commands
-# in packaging/conda/meta.yaml. e.g. they have the following form: {% ... %}
 #  - id: check-yaml
   - id: debug-statements
   - id: end-of-file-fixer

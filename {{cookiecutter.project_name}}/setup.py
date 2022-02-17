@@ -116,7 +116,7 @@ class CMakeBuild(build_ext):
         subprocess.check_call(["cmake", "--build", "."] + build_args, cwd=self.build_temp)
 
 
-long_description = (__here__ / "../README.md").read_text(encoding="utf-8")
+long_description = (__here__ / "README.md").read_text(encoding="utf-8")
 
 setuptools.setup(
     name="project",

@@ -1,6 +1,6 @@
 package:
   # Short name to avoid filename length issues on Windows.
-  name: projtemplate
+  name: {{ cookiecutter.project_name }}
   version: {{ cookiecutter.version }}
 
 source:
@@ -11,8 +11,8 @@ build:
 
 requirements:
   build:
-    - {{ compiler('c') }}
-    - {{ compiler('cxx') }}
+    - {% raw %}{{ compiler('c') }}{% endraw %}
+    - {% raw %}{{ compiler('cxx') }}{% endraw %}
     - python
     - pybind11
     - cmake
@@ -27,8 +27,8 @@ outputs:
     script: install-libprojcxx.sh   # [unix]
     requirements:
       build:
-        - {{ compiler('c') }}
-        - {{ compiler('cxx') }}
+        - {% raw %}{{ compiler('c') }}{% endraw %}
+        - {% raw %}{{ compiler('cxx') }}{% endraw %}
         - cmake
         - ninja
         - pybind11
@@ -40,8 +40,8 @@ outputs:
       activate_in_script: True
     requirements:
       build:
-        - {{ compiler('c') }}
-        - {{ compiler('cxx') }}
+        - {% raw %}{{ compiler('c') }}{% endraw %}
+        - {% raw %}{{ compiler('cxx') }}{% endraw %}
       host:
         - pybind11
         - cmake

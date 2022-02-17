@@ -9,7 +9,7 @@ from setuptools import Extension
 from setuptools.command.build_ext import build_ext
 from setuptools_rust import Binding, RustExtension
 
-__version__ = {{ cookiecutter.version }}
+__version__ = "{{ cookiecutter.version }}"
 
 __here__ = pathlib.Path(__file__).parent.resolve()
 
@@ -116,7 +116,7 @@ class CMakeBuild(build_ext):
         subprocess.check_call(["cmake", "--build", "."] + build_args, cwd=self.build_temp)
 
 
-long_description = (__here__ / "README.md").read_text(encoding="utf-8")
+long_description = (__here__ / "../README.md").read_text(encoding="utf-8")
 
 setuptools.setup(
     name="project",

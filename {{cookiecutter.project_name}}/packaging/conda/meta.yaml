@@ -13,6 +13,7 @@ requirements:
   build:
     - {% raw %}{{ compiler('c') }}{% endraw %}
     - {% raw %}{{ compiler('cxx') }}{% endraw %}
+    - {% raw %}{{ compiler('rust') }}{% endraw %}
     - python
     - pybind11
     - cmake
@@ -42,25 +43,22 @@ outputs:
       build:
         - {% raw %}{{ compiler('c') }}{% endraw %}
         - {% raw %}{{ compiler('cxx') }}{% endraw %}
+        - {% raw %}{{ compiler('rust') }}{% endraw %}
       host:
+        - python
         - pybind11
         - cmake
         - ninja
         - pkg-config
         - setuptools-rust
-        - python
       run:
         - python
     test:
       source_files: src/python/*
       requires:
-        - pytest
-        - flake8
+        - nox
       commands:
-        - flake8 src/python
-        - pushd src/python/project/tests
-        -   pytest -sv
-        - popd
+        - nox -s tests
 
 about:
   home: https://extropic.net/

@@ -56,6 +56,8 @@ RUN tar xvzf 2.6.tar.gz && \
 
 USER ubuntu
 
+RUN mkdir /home/ubuntu/host
+
 RUN wget -qO - https://sh.rustup.rs | sh -s -- --no-modify-path -y
 
 ENV PATH="/home/ubuntu/.cargo/bin:/databricks/python3/bin:${PATH}"

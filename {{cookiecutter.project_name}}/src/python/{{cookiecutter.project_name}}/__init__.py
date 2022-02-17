@@ -7,7 +7,9 @@ __email__ = "{{ cookiecutter.email }}"
 __version__ = "{{ cookiecutter.version }}"
 
 
-def shutdown():
+def shutdown() -> None:
+    """This function is called on module exit."""
+
     print("{{ cookiecutter.project_name }} module shutdown")
 
 

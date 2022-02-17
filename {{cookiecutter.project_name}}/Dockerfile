@@ -36,9 +36,11 @@ RUN /databricks/python3/bin/pip3 install \
     check-manifest \
     cookiecutter \
     flake8 \
+    mypy \
     nox \
     pre-commit \
     pybind11 \
+    pylint \
     pytest \
     pyyaml \
     setuptools \

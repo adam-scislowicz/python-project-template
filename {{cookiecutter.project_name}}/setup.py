@@ -1,17 +1,17 @@
-import setuptools
+# pylint: skip-file
+
+"""Setuptools based package definition for {{ cookiecutter.project_name }}"""
+
 import os
 import sys
 import subprocess
-
 import pathlib
 import distutils.cmd
+
+import setuptools
 from setuptools import Extension
 from setuptools.command.build_ext import build_ext
 from setuptools_rust import Binding, RustExtension
-
-__version__ = "{{ cookiecutter.version }}"
-
-__here__ = pathlib.Path(__file__).parent.resolve()
 
 # Convert distutils Windows platform specifiers to CMake -A arguments
 PLAT_TO_CMAKE = {
@@ -38,16 +38,17 @@ class CmdClean(distutils.cmd.Command):
 
 
 class CMakeExtension(Extension):
+    """extension specialization for cmake integration"""
+
     def __init__(self, name, sourcedir=""):
         Extension.__init__(self, name, sources=[])
         self.sourcedir = os.path.abspath(sourcedir)
 
 
 class CMakeBuild(build_ext):
-    def build_extension(self, ext):
-        global __version__
-        global __here__
+    """build_ext specialization for cmake"""
 
+    def build_extension(self, ext):
         extdir = os.path.abspath(os.path.dirname(self.get_ext_fullpath(ext.name)))
 
         # required for auto-detection of auxiliary "native" libs
@@ -64,10 +65,10 @@ class CMakeBuild(build_ext):
         # EXAMPLE_VERSION_INFO shows you how to pass a value into the C++ code
         # from Python.
         cmake_args = [
-            "-DPROJECT_DIR={}".format(__here__),
+            "-DPROJECT_DIR={}".format(pathlib.Path(__file__).parent.resolve()),
             "-DCMAKE_LIBRARY_OUTPUT_DIRECTORY={}".format(extdir),
             "-DPYTHON_EXECUTABLE={}".format(sys.executable),
-            "-DVERSION={}".format(__version__),
+            '-DVERSION="{{ cookiecutter.version }}"',
             "-DCMAKE_BUILD_TYPE={}".format(cfg),  # not used on MSVC, but no harm
         ]
         build_args = ["-v"]
@@ -116,17 +117,19 @@ class CMakeBuild(build_ext):
         subprocess.check_call(["cmake", "--build", "."] + build_args, cwd=self.build_temp)
 
 
-long_description = (__here__ / "README.md").read_text(encoding="utf-8")
+long_description = (pathlib.Path(__file__).parent.resolve() / "README.md").read_text(
+    encoding="utf-8"
+)
 
 setuptools.setup(
-    name="project",
-    version=__version__,
-    author="Adam Scislowicz",
-    author_email="adam.scislowicz@gmail.com",
-    url="https://github.com/ExtropicSystems/conda-forge-template.git",
+    name="{{ cookiecutter.project_name }}",
+    version="{{ cookiecutter.version }}",
+    author="{{ cookiecutter.full_name }}",
+    author_email="{{ cookiecutter.email }}",
+    url="{{ cookiecutter.repo_name }}",
     license="proprietary and confidential",
     license_files=("LICENSE.txt",),
-    description="misc modules",
+    description="{{ cookiecutter.project_short_description }}",
     long_description=long_description,
     long_description_content_type="text/markdown",
     package_dir={"": "src/python"},

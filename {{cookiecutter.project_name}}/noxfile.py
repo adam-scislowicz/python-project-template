@@ -1,3 +1,7 @@
+# pylint: skip-file
+
+"""primary nox definition file."""
+
 import nox
 
 nox.options.sessions = ["lint", "tests"]
@@ -9,6 +13,7 @@ def lint(session: nox.Session) -> None:
     Run the linter.
     """
     session.install("-r", "requirements.test.txt")
+    session.install("-e", ".")
     session.run("pre-commit", "run", "--all-files", *session.posargs)
 
 

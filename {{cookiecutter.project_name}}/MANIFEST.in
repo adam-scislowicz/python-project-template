@@ -10,6 +10,7 @@ include noxfile.py
 include .clang-format
 include .flake8
 include .pre-commit-config.yaml
+include requirements.txt
 include requirements.test.txt
 
 recursive-include packaging *

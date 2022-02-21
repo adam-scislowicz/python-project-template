@@ -65,6 +65,12 @@ repos:
 #    language: system
 #    entry: bash -c 'python setup.py check -m -s'
 
+- repo: https://github.com/AleksaC/hadolint-py
+  rev: v2.8.0
+  hooks:
+  - id: hadolint
+    args: [--ignore, DL3003, --ignore, DL3008, --ignore, DL3015, --ignore, DL4006]
+
 - repo: https://github.com/pycqa/flake8
   rev: 4.0.1
   hooks:

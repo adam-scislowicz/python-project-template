@@ -1,4 +1,4 @@
-"""Top-level package for {{ cookiecutter.project_name }}."""
+"""Top-level package for {{ cookiecutter.project_slug }}."""
 
 import atexit
 
@@ -10,9 +10,9 @@ __version__ = "{{ cookiecutter.version }}"
 def shutdown() -> None:
     """This function is called on module exit."""
 
-    print("{{ cookiecutter.project_name }} module shutdown")
+    print("{{ cookiecutter.project_slug }} module shutdown")
 
 
 atexit.register(shutdown)
 
-print("{{ cookiecutter.project_name }} module loaded.")
+print("{{ cookiecutter.project_slug }} module loaded.")

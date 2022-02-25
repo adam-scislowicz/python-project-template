@@ -1,6 +1,6 @@
 package:
   # Short name to avoid filename length issues on Windows.
-  name: {{ cookiecutter.project_name }}
+  name: {{ cookiecutter.project_slug }}
   version: {{ cookiecutter.version }}
 
 source:

@@ -3,7 +3,7 @@ FROM databricksruntime/standard:9.x
 ENV UID=1000
 ENV GID=1000
 ENV USER=ubuntu
-ENV PROJECT_NAME=project
+ENV PROJECT_SLUG=project
 
 WORKDIR /tmp
 COPY requirements.txt .
@@ -32,7 +32,7 @@ RUN apt-get clean \
     && yes '' | add-apt-repository -y ppa:ubuntu-toolchain-r/test \
     && apt-get update \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y \
-        clang-format cmake gcc-11 g++-11 gdb \
+    clang-format cmake gcc-11 g++-11 gdb \
     && update-alternatives --remove-all cpp \
     && update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 110 --slave /usr/bin/g++ g++ /usr/bin/g++-11 --slave /usr/bin/gcov gcov /usr/bin/gcov-11 --slave /usr/bin/gcc-ar gcc-ar /usr/bin/gcc-ar-11 --slave /usr/bin/gcc-ranlib gcc-ranlib /usr/bin/gcc-ranlib-11  --slave /usr/bin/cpp cpp /usr/bin/cpp-11 \
     && /databricks/python3/bin/pip3 install -r requirements.txt \
@@ -51,7 +51,7 @@ RUN apt-get clean \
 
 USER $USER
 
-RUN mkdir -p /home/${USER}/${PROJECT_NAME} \
+RUN mkdir -p /home/${USER}/${PROJECT_SLUG} \
     && wget -qO - https://sh.rustup.rs | sh -s -- --no-modify-path -y
 
 ENV PATH="/home/${USER}/.cargo/bin:/databricks/python3/bin:${PATH}"

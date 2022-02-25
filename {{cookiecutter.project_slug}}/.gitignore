@@ -1,6 +1,6 @@
 /.devcontainer
 /dist
-/project
+/{{ cookiecutter.project_slug }}
 rust_proj
 /src/rust/target
 /src/rust/Cargo.lock

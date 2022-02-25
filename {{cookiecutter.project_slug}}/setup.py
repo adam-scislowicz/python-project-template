@@ -122,7 +122,7 @@ long_description = (pathlib.Path(__file__).parent.resolve() / "README.md").read_
 )
 
 setuptools.setup(
-    name="{{ cookiecutter.project_name }}",
+    name="{{ cookiecutter.project_slug }}",
     version="{{ cookiecutter.version }}",
     author="{{ cookiecutter.full_name }}",
     author_email="{{ cookiecutter.email }}",
@@ -138,11 +138,11 @@ setuptools.setup(
         "Programming Language :: Python :: 3",
         "Operating System :: OS Independent",
     ],
-    ext_modules=[CMakeExtension(name="{{ cookiecutter.project_name }}.cxxmod")],
+    ext_modules=[CMakeExtension(name="{{ cookiecutter.project_slug }}.cxxmod")],
     cmdclass={"build_ext": CMakeBuild, "clean": CmdClean},
     rust_extensions=[
         RustExtension(
-            "{{ cookiecutter.project_name }}.rust_proj.rustmoda", path="src/rust/Cargo.toml", binding=Binding.PyO3
+            "{{ cookiecutter.project_slug }}.rust_proj.rustmoda", path="src/rust/Cargo.toml", binding=Binding.PyO3
         )
     ],
     python_requires=">=3.6, <4",

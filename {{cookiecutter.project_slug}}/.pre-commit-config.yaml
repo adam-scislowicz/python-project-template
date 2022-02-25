@@ -45,7 +45,7 @@ repos:
   rev: "0.47"
   hooks:
   - id: check-manifest
-    args: ['--ignore', 'noxfile.py,src/python/project/tests/**,*.so']
+    args: ['--ignore', 'noxfile.py,src/python/{{ cookiecutter.project_slug }}/tests/**,*.so']
 
 - repo: local
   hooks:
